@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<!--<link rel="stylesheet" href="./static/main.css">-->
+	<script type="text/javascript" src="./static/main.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+
+
+	<title>SC2 Pro Matches Archive</title>
+<style type="text/css">
+.Zerg::before{
+	content: url("./static/z_icon.png");
+}
+
+.Terran::before{
+	content: url("./static/t_icon.png");
+}
+
+.Protoss::before{
+	content: url("./static/p_icon.png");
+}
+
+.victor{
+	height: 20px;
+	vertical-align: sub;
+}
+
+.container{
+	margin-top: 20px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	background-color: white;
+	box-shadow: 0 1px 1px rgba(0,0,0,.05);
+	border-radius: 3px;
+}
+
+body{
+	background-color: #d0d6db;
+}
+
+.player_name_field{
+	max-width: 150px;
+	max-height: 24px;
+}
+
+.action_button{
+	width: 24px;
+	border: 0px;
+	background-color: #f8f9fa;
+}
+
+.action_button_form{
+	width: 26px;
+}
+</style>
+
+</head>
+<body>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+
+	<div class="container">
+		<div class="container-fluid">
+			<div class="row" style="color: white; background-color: #435d7d; ">
+				<div class="col-sm-1">Match id</div>
+				<div class="col-sm-2">Date</div>
+				<div class="col-sm-2">Game Expansion</div>
+				<div class="col">Blue team player</div>
+				<div class="col">Red team player</div>
+				<div class="col-sm-1">Actions</div>
+			</div>
+			{% for match in all_matches %}
+			<div class="row" style="border: 1px solid black">			
+				<div class="col-sm-1">{{match.match_id}}</div>
+				<div class="col-sm-2">{{match.match_date}}</div>
+				<div class="col-sm-2">{{match.expansion_name}}</div>
+				{% if match.victory_status %}
+				<div class="col"><span class="{{match.player1_faction}}"> {{match.player1_name}} <img class="victor" src="./static/crown.png"></span></div>
+				<div class="col"><span class="{{match.player2_faction}}"> {{match.player2_name}} </span></div>
+				{% else %}
+				<div class="col"><span class="{{match.player1_faction}}"> {{match.player1_name}} </span></div>
+				<div class="col"><span class="{{match.player2_faction}}"> {{match.player2_name}} <img class="victor" src="./static/crown.png"></span></div>
+				{% endif %}
+				<div class="col-sm-1" >					
+					<button value="{{match.match_id}}" class="action_button"><img class="edit_button" src="./static/edit.png" style="vertical-align: top;"></button>					
+					<form class="action_button_form" action="./delete" method="post" style="display: inline-block;">
+						<input type="hidden" value="{{match.match_id}}" name="entry_id">
+						<input class="action_button" type="submit" value="" style="background-image: url(./static/del.png)">
+					</form>
+				</div>
+			</div>
+			{% endfor %}
+
+			<div class="row">
+				<button id="create">Add new entry</button>
+			</div>
+
+			<form id="entry_form" action="./create" method="post" style="display: none">
+			<div class="row">
+					<div class="col-sm-1"><input id="edit_id" type="hidden" name="edit_id" value=""></div>
+					<div class="col-sm-2"><input type="date" name="match_date" required ></div>
+					<div class="col-sm-2"><select name="expansions" required >
+					    <option value="Wings of Liberty">WoL</option>
+					    <option value="Heart of the Swarm">HotS</option>
+					    <option value="Legacy of the Void">LotV</option>
+					</select></div>					
+					<div class="col">
+						<input class="player_name_field" type="text" placeholder="Enter player name" name="player_name1" required >
+						<select name="faction1" required >
+						    <option value="Zerg">Zerg</option>
+						    <option value="Terran">Terran</option>
+						    <option value="Protoss">Protoss</option>
+						</select>
+						<input type="radio" value="1" name="Winner" required >
+						<label for="true"><img class="victor" src="./static/crown.png"></label>
+					</div>
+					<div class="col">
+						<input class="player_name_field" type="text" placeholder="Enter player name" name="player_name2" required >
+						<select name="faction2" required >
+						    <option value="Zerg">Zerg</option>
+						    <option value="Terran">Terran</option>
+						    <option value="Protoss">Protoss</option>
+						</select>
+						<input type="radio" value="" name="Winner" required >
+						<label for="false"><img class="victor" src="./static/crown.png"></label>
+					</div>
+					<div class="col-sm-1"><input type="submit" value="Submit"></div>			
+			</div>
+			</form>
+		</div>
+	</div>
+
+
+
+</body>
