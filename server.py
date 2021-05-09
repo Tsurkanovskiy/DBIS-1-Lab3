@@ -1,12 +1,12 @@
 from flask import Flask, render_template, request, redirect
 from persistance import persistance_read, persistance_create, persistance_update, persistance_delete, app, create_tables
 
-create_tables()
+#create_tables()
 
 @app.route("/")
 def main():
-	all_matches = persistance_read()
-	return render_template("main.html", all_matches=all_matches)
+	#all_matches = persistance_read()
+	return render_template("main.html", all_matches=[])
 
 @app.route("/create", methods=["POST"])
 def addNewTitle():
