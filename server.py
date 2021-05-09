@@ -6,7 +6,7 @@ create_tables()
 @app.route("/")
 def main():
 	all_matches = persistance_read()
-	return render_template("main.html", all_matches=[])
+	return render_template("main.html", all_matches=all_matches)
 
 @app.route("/create", methods=["POST"])
 def addNewTitle():
