@@ -1,7 +1,21 @@
 from flask import Flask, render_template, request, redirect
-from persistance import persistance_read, persistance_create, persistance_update, persistance_delete, app
+from persistance import persistance_read, persistance_create, persistance_update, persistance_delete, app, db
 
 
+class players(db.Model):
+	player_name = db.Column(db.Text, unique=True, nullable=False, primary_key=True)
+
+class matches(db.Model):
+	match_id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
+	match_date = db.Column(db.DateTime, nullable=False)
+	victory_status = db.Column(db.Boolean, nullable=False)
+	expansion_name = db.Column(db.Text, nullable=False)
+	player1_name = db.Column(db.Text, nullable=False)
+	player2_name = db.Column(db.Text, nullable=False)
+	player1_faction = db.Column(db.Text, nullable=False)
+	player2_faction = db.Column(db.Text, nullable=False)
+
+db.create_all()
 
 @app.route("/")
 def main():
