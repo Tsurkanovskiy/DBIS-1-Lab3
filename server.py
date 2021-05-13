@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, redirect
 from persistance import persistance_read, persistance_create, persistance_update, persistance_delete, app, create_tables
-import os
 
 
 
@@ -10,8 +9,7 @@ create_tables()
 @app.route("/")
 def main():
 	all_matches = persistance_read()
-	DB_URL1 = os.environ.get("DATABASE_URL")
-	return render_template("main.html", all_matches=all_matches, DB_URL = DB_URL1)
+	return render_template("main.html", all_matches=all_matches)
 
 @app.route("/create", methods=["POST"])
 def addNewTitle():
