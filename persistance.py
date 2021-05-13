@@ -2,8 +2,9 @@ from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
 from datetime import datetime
 
+DB_URL = os.environ.get("DATABASE_URL")
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://shadbceseekedm:2d223276263de89b4bf01fcae5428979582ed9a4699e578f22bea776d73d4aa6@ec2-54-216-48-43.eu-west-1.compute.amazonaws.com:5432/d22fs2rndonijb'
+app.config['SQLALCHEMY_DATABASE_URI'] = DB_URL
 db = SQLAlchemy(app)
 
 class players(db.Model):
