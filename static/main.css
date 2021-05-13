@@ -16,13 +16,16 @@
 }
 
 .container{
-	padding-top: 4px;
-	padding-bottom: 4px;
+	margin-top: 20px;
+	padding-top: 8px;
+	padding-bottom: 8px;
 	background-color: white;
+	box-shadow: 0 1px 1px rgba(0,0,0,.05);
+	border-radius: 3px;
 }
 
 body{
-	background-color: #f8f9fa;
+	background-color: #d0d6db;
 }
 
 .player_name_field{
