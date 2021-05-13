@@ -3,8 +3,8 @@ from flask import Flask
 from datetime import datetime
 import os
 
-DB_URL = str(os.environ.get("DATABASE_URL"))
-DB_URL.replace("postgres", "postgresql")
+DB_URL = os.environ.get("DATABASE_URL")
+DB_URL = DB_URL.replace("postgres", "postgresql")
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = DB_URL
 db = SQLAlchemy(app)
